@@ -7,9 +7,16 @@ import { useLoadedAssets } from "./hooks/useLoadedAssets";
 import Navigation from "./navigation";
 import { useColorScheme } from "react-native";
 
+import * as Linking from 'expo-linking';
+
+const prefix = Linking.createURL('/');
+
 export default function App() {
   const isLoadingComplete = useLoadedAssets();
   const colorScheme = useColorScheme();
+  const linking = {
+    prefixes: [prefix],
+  }
 
   if (!isLoadingComplete) {
     return null;
@@ -17,6 +24,7 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
+        <Text>{ linking }</Text>
         <StatusBar />
       </SafeAreaProvider>
     );
